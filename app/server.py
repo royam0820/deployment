@@ -8,8 +8,8 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-export_file_url = 'https://drive.google.com/file/d/1PF6NGvMQ8ZywIqoSxlpkClc7QUqHpJpW/view?usp=sharing'
-export_file_name = 'export.pkl'
+export_file_url = 'YOUR EXPORT URL'
+export_file_name = 'YOUR EXPORT FILE - i.e.: export.pkl'
 
 classes = ['black', 'grizzly','teddy']
 path = Path(__file__).parent
@@ -55,12 +55,14 @@ async def homepage(request):
     return HTMLResponse(html_file.open().read())
 
 
+
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
   img_data = await request.form()
   img_bytes = await (img_data['file'].read())
-  img_np = np.array(Image.open(BytesIO(img_bytes)))
-  pred = learn.predict(BytesIO(img_bytes))
+  img = PILImage.create(img_bytes)
+  #img_np = np.array(Image.open(BytesIO(img_bytes)))
+  pred = learn.predict(img)
   return JSONResponse({
       'result': str(pred[0])
   })
