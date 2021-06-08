@@ -15,7 +15,7 @@ python-multipart
 pyyaml
 fastprogress==0.1.22
 multiprocess==0.70.10
-Pillow==7.0.00
+Pillow==8.2.0
 pip
 scipy
 spacy
